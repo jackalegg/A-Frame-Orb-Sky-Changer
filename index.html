@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>A-Frame Orb Sky Changer | by On_x0</title>
+    <link rel="icon" type="image/png" sizes="16x16" crossorigin="anonymous" href="./favicon.ico"/>
+    <meta name="description" content="A-Frame Orb Sky Changer Prototype">
+    <meta name="keywords" content="A-Frame,aframe,webvr,sky,changer,javascript,component">
+    <meta name="author" content="On_x0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <script src="./orbs.js"></script>
+</head>
+<body>
+<a-scene stats background="color:#33C" renderer="antialias: true; colorManagement: true; sortObjects: true">
+<!-- - - - - - - - - - - Assets - - - - - - - - - - -->
+<a-assets>
+    <img id="sky0" src="./img/sky.jpg" preload="auto" crossorigin="anonymous">
+    <!-- Original HDRIs created by Greg Zaal -->
+    <img id="sky1-1k" src="./img/cannon_1k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky2-1k" src="./img/kloppenheim_02_1k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky3-1k" src="./img/satara_night_1k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky4-1k" src="./img/shanghai_bund_1k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky5-1k" src="./img/spruit_sunrise_1k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky6-1k" src="./img/the_sky_is_on_fire_1k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky1-2k" src="./img/cannon_2k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky2-2k" src="./img/kloppenheim_02_2k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky3-2k" src="./img/satara_night_2k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky4-2k" src="./img/shanghai_bund_2k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky5-2k" src="./img/spruit_sunrise_2k.jpg" preload="auto" crossorigin="anonymous">
+    <img id="sky6-2k" src="./img/the_sky_is_on_fire_2k.jpg" preload="auto" crossorigin="anonymous">
+
+    <!-- - - - - - - - - - - Mixins - - - - - - - - - - -->
+    <!-- Orbs Slow Rotation -->
+    <a-mixin id="slowRotate"
+    animation__slowRotate="property: object3D.rotation.y; from: 0; to: 360; dur: 27000; delay: 0; loop: true; dir: normal; easing: linear; elasticity: 400; autoplay: true; enabled: true; pauseEvents: click; resumeEvents: resumeAnim;"
+    ></a-mixin>
+    <!-- Orbs Slow Bobbing Up and Down -->
+    <a-mixin id="bobbing"
+    animation__bobbing="property: object3D.position.y; from: 1; to: 2; dur: 3000; delay: 0; loop: true; dir: alternate; easing: easeInOutSine; elasticity: 400; autoplay: true; enabled: true; pauseEvents: pauseAnim; resumeEvents: resumeAnim;"
+    ></a-mixin>
+    <!-- Orbs Expansion on Selection | Change from -->
+    <a-mixin id="expand"
+    animation__expand="property: scale; from: 1 1 1; to: 512 512 512; dur: 4000; delay: 0; loop: false; dir: normal; easing: easeInOutQuad; autoplay: false; enabled: true; startEvents: click;"
+    ></a-mixin>
+    <!-- Reset Scale of Orb after Expansion Animation-->
+    <a-mixin id="resetScale"
+    animation__resetScale="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 1000; delay: 0; loop: false; dir: normal; easing: easeInOutQuad; autoplay: false; enabled: true; startEvents: orbReset;"
+    ></a-mixin>
+    <!-- Orbs Fading out after Selection and Expansion-->
+    <a-mixin id="opacOut"
+    animation__opacOut="property: opacity; from: 1; to: 0; dur: 500; delay: 2500; loop: false; dir: normal; easing: linear; autoplay: false; enabled: true; startEvents: click;"
+    ></a-mixin>
+</a-assets>
+
+<!-- - - - - - - - - - - Scene - - - - - - - - - - -->
+<!-- Orb1 -->
+<a-entity id="centerOrb1" position="0 0 0" rotation="0 0 0" orbit-user>
+    <a-sphere mixin="slowRotate bobbing expand resetScale opacOut" orb-expanding
+    id="orb1" src="#sky1-1k" radius="1" position="0 1 -6" rotation="0 0 0" scale="1 1 1" opacity="1"
+    side="back" shader="flat"
+    class="clickable"
+    ></a-sphere>
+</a-entity>
+<!-- Orb2 -->
+<a-entity id="centerOrb2" position="0 0 0" rotation="0 60 0" orbit-user>
+    <a-sphere mixin="slowRotate bobbing expand resetScale opacOut" orb-expanding
+    id="orb2" src="#sky2-1k" radius="1" position="0 1 -6" rotation="0 0 0" scale="1 1 1" opacity="1"
+    side="back" shader="flat"
+    class="clickable"
+    ></a-sphere>
+</a-entity>
+<!-- Orb3 -->
+<a-entity id="centerOrb3" position="0 0 0" rotation="0 120 0" orbit-user>
+    <a-sphere mixin="slowRotate bobbing expand resetScale opacOut" orb-expanding
+    id="orb3" src="#sky3-1k" radius="1" position="0 1 -6" rotation="0 0 0" scale="1 1 1" opacity="1"
+    side="back" shader="flat"
+    class="clickable"
+    ></a-sphere>
+</a-entity>
+<!-- Orb4 -->
+<a-entity id="centerOrb4" position="0 0 0" rotation="0 180 0" orbit-user>
+    <a-sphere mixin="slowRotate bobbing expand resetScale opacOut" orb-expanding
+    id="orb4" src="#sky4-1k" radius="1" position="0 1 -6" rotation="0 0 0" scale="1 1 1" opacity="1"
+    side="back" shader="flat"
+    class="clickable"
+    ></a-sphere>
+</a-entity>
+<!-- Orb5 -->
+<a-entity id="centerOrb5" position="0 0 0" rotation="0 240 0" orbit-user>
+    <a-sphere mixin="slowRotate bobbing expand resetScale opacOut" orb-expanding
+    id="orb5" src="#sky5-1k" radius="1" position="0 1 -6" rotation="0 0 0" scale="1 1 1" opacity="1"
+    side="back" shader="flat"
+    class="clickable"
+    ></a-sphere>
+</a-entity>
+<!-- Orb6 -->
+<a-entity id="centerOrb6" position="0 0 0" rotation="0 300 0" orbit-user>
+    <a-sphere mixin="slowRotate bobbing expand resetScale opacOut" orb-expanding
+    id="orb6" src="#sky6-1k" radius="1" position="0 1 -6" rotation="0 0 0" scale="1 1 1" opacity="1"
+    side="back" shader="flat"
+    class="clickable"
+    ></a-sphere>
+</a-entity>
+
+<!-- Info | Instructions  -->
+<a-entity
+text="value: * A-Frame Orb Sky Changer *\n Hover over any Orb to swap the Sky.\n\n; color: white; align: center;"
+geometry="primitive: plane; width: 2; height: 0.6;"
+position="0 1.5 -1.5" rotation="-45 0 0"
+material="color: #304a39; shader: flat; opacity: 0.69">
+<a-text
+value="github.com/On-x0"
+color="white" align="center" width="1.25" position="0 0.225 0"
+></a-text><a-text
+value="Thanks for testing my code out!\n - On_x0"
+color="white" align="center" width="1.5" position="0 -0.175 0"
+></a-text></a-entity>
+
+<!-- Floor -->
+<a-circle id="floor" color="#304a39" rotation="-90 0 0" radius="2" position="0 0 0" opacity="0.5"></a-circle>
+<!-- - - - - - - - - - - Sky - - - - - - - - - - -->
+<!-- Sky Orbit Wrap -->
+<a-entity id="centerSky" position="0 0 0" rotation="0 0 0" center-sky-fix
+animation__matchOrbit="property: rotation.y; from: 0; to: 0; dur: 1000; delay: 1000; loop: false; dir: normal; easing: linear; elasticity: 400; autoplay: false; enabled: true; startEvents: resetOrbitAnim;">
+<!-- Sky -->
+<a-sky id="sky" src="#sky0" material="" geometry="" rotation="0 180 0" scale="1 1 1" sky-fix class="still"></a-sky></a-entity>
+
+<!-- - - - - - - - - - - Camera, Lights & Sound - - - - - - - - - - -->
+<!-- Cursor Component | Gaze & Controller Interactions -->
+<a-entity position="0 1.6 0">
+    <a-camera look-controls="pointerLockEnabled: false" wasd-controls="enabled: false">
+        <a-entity id="mouseCursor" laser-controls raycaster="objects: .clickable" cursor="fuse: true; fuseTimeout: 2000; rayOrigin: mouseCursor;"
+        material="color: grey; shader: flat; side: double"
+        position="0 0 -0.1"
+        scale=".0025 .0025 .0025"
+        geometry="primitive: ring;"
+        animation__fusing="property: scale; from: .0025 .0025 .0025; to: 0.0005 0.0005 0.0005; dur: 2000; delay: 0; loop: false; dir: normal; easing: easeInCubic; elasticity: 400; autoplay: false; enabled: true; startEvents: fusing;"
+        animation__mousereset="property: scale; to: .0025 .0025 .0025; dur: 500; delay: 0; loop: false; dir: normal; easing: easeInCubic; elasticity: 400; autoplay: false; enabled: true; startEvents: mouseleave, orbExpand;"
+        animation__skychange1="property: geometry.thetaLength; from: 360; to: 0; dur: 2000; delay: 0; loop: false; dir: normal; easing: linear; elasticity: 400; autoplay: true; enabled: true; startEvents: orbExpand"
+        animation__skychange2="property: rotation; from: 0 0 0; to: 0 180 180; dur: 1; delay: 2000; loop: false; dir: normal; easing: linear; elasticity: 400; autoplay: true; enabled: true; startEvents: orbExpand"
+        animation__skychange3="property: geometry.thetaLength; from: 0; to: 360; dur: 2000; delay: 2001; loop: false; dir: normal; easing: linear; elasticity: 400; autoplay: true; enabled: true; startEvents: orbExpand"
+        animation__skychange4="property: rotation; from: 0 180 180; to: 0 0 0; dur: 1; delay: 4001; loop: false; dir: normal; easing: linear; elasticity: 400; autoplay: true; enabled: true; startEvents: orbExpand"
+        ></a-entity>
+    </a-camera>
+</a-entity> 
+<!-- Lights -->
+<!-- Directional -->
+<a-entity light="type: directional; intensity: 1; castShadow: false" position="-0.5 1 1"></a-entity> 
+<!-- Ambient -->
+<a-entity light="type: ambient; color: #8b82bc; intensity: 1"></a-entity> 
+        </a-scene>
+    </body>
+</html>
